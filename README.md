@@ -12,4 +12,4 @@ setup:
 2) update the first few lins of data.php
 
 
-demo url: http://hackspace.tw/demo
+demo url: http://hackspace.tw/newdemo
