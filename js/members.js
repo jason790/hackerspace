@@ -66,7 +66,7 @@ $(document).ready(function () {
 					error: function(jqXHR, textStatus, errorThrown)
 					{
 					commit(false);
-					alert("adding error");
+					alert(trans_AddingError);
 					/*		console.log(errorThrown);	console.log(jqXHR);	console.log(textStatus);   */
 					}
 				});							
@@ -115,7 +115,7 @@ $(document).ready(function () {
 				cache: false,
 				data: data,
 				success: function (data, status, xhr) { commit(true); },
-				error: function(jqXHR, textStatus, errorThrown) { commit(false); alert("update error"); }							
+				error: function(jqXHR, textStatus, errorThrown) { commit(false); alert(trans_UpdateError); }
 			});		
 		}
 	};
@@ -139,7 +139,7 @@ $(document).ready(function () {
 
 	//use text for Member types now later update to relational table
 	var list = [ 'Founder', 'Founding Member', 'Member', 'Guest'];
-	$("#MemberType").jqxDropDownList({ width: '308px', height: '38px', theme: theme });
+	$("#MemberType").jqxDropDownList({ width: '300px', height: '38px', theme: theme });
 	$("#MemberType").jqxDropDownList({ source: list }); 
 	
 	// selects the first item.
@@ -167,11 +167,11 @@ $(document).ready(function () {
 		theme: theme,
 		columns: [
 //            { text: 'ID', datafield: 'ID', width: 40 }, //don't need to show the ID column
-			  { text: 'Active', datafield: 'Active', columntype: 'checkbox', width: 67 },
-			  { text: 'Join Date', datafield: 'JoinDate', width: 120, cellsformat: 'yyyy-MM-dd',columntype: 'datetimeinput', cellsalign: 'right'  },
-			  { text: 'First Name', datafield: 'FirstName', width: 120 },
-			  { text: 'Last Name', datafield: 'LastName', width: 120 },
-			  { text: 'Member Type', datafield: 'MemberType', width: 120,  columntype: 'dropdownlist',  
+			  { text: trans_Active, datafield: 'Active', columntype: 'checkbox', width: 67 },
+			  { text: trans_JoinDate, datafield: 'JoinDate', width: 120, cellsformat: 'yyyy-MM-dd',columntype: 'datetimeinput', cellsalign: 'right'  },
+			  { text: trans_FirstName, datafield: 'FirstName', width: 120 },
+			  { text: trans_LastName, datafield: 'LastName', width: 120 },
+			  { text: trans_MemberType, datafield: 'MemberType', width: 120,  columntype: 'dropdownlist',  
 				 createeditor: function (row, column, editor) {
 					var list = [ 'Founder', 'Founding Member', 'Member', 'Guest'];
 					editor.jqxDropDownList({ source: list });
@@ -180,10 +180,10 @@ $(document).ready(function () {
 					if (newvalue == "") return oldvalue; // return the old value, if the new value is empty.
 				}
 			  },
-			  { text: 'Email', datafield: 'Email', width: 180 },
-			  { text: 'Phone', datafield: 'Phone', width: 140 },
+			  { text: trans_Email, datafield: 'Email', width: 180 },
+			  { text: trans_Phone, datafield: 'Phone', width: 140 },
 			  
-			  { text: 'Edit', datafield: 'Edit', columntype: 'button', cellsrenderer: function () { return "Edit"; }, 
+			  { text: trans_Edit, datafield: 'Edit', columntype: 'button', cellsrenderer: function () { return trans_Edit; }, 
 				buttonclick: function (row) 
 					{
 						 // open the popup window when the user clicks a button.
@@ -218,7 +218,7 @@ $(document).ready(function () {
 	});
 
 	// initialize the popup window and buttons.
-	$("#Member_PopupWindow").jqxWindow({ width: 420, height:460, resizable: false, theme: theme, isModal: true, autoOpen: false, cancelButton: $("#Member_Cancel"), modalOpacity: 0.4 });
+	$("#Member_PopupWindow").jqxWindow({ width: 430, height:460, resizable: false, theme: theme, isModal: true, autoOpen: false, cancelButton: $("#Member_Cancel"), modalOpacity: 0.4 });
 	
 	// update the edited row when the user clicks the 'Save' button.
 	$("#Member_Save").click(function () {
@@ -256,7 +256,7 @@ $(document).ready(function () {
 	// delete row button.
 	$("#Member_DeleteRow").bind('click', function () {
 
-		if (confirm('Deleting records are final, confirm?')) {
+		if (confirm(trans_delete_confirm)) {
 			var selectedrowindex = $("#Member_Grid").jqxGrid('getselectedrowindex');
 			var id = $("#Member_Grid").jqxGrid('getrowid', selectedrowindex);
 			$("#Member_Grid").jqxGrid('deleterow', id);
