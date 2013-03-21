@@ -44,7 +44,11 @@
 
     <script type="text/javascript" src="scripts/gettheme.js"></script>
 	
-    <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="js/functions.js"></script>
+    <script type="text/javascript" src="js/members.js"></script>
+    <script type="text/javascript" src="js/events.js"></script>
+    <script type="text/javascript" src="js/inventory.js"></script>
+    <script type="text/javascript" src="js/financial.js"></script>
 	
 	
     <style type="text/css">
@@ -79,21 +83,10 @@
               <li><a href="#about">About</a></li>
               <li><a href="#about">Events</a></li>
               <li><a href="#contact">Contact</a></li>
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Managment <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                  <li><a href="#">Members</a></li>
-                  <li><a href="#">Events</a></li>
-                  <li><a href="#">Inventory</a></li>
-                  <li class="divider"></li>
-                  <li><a href="#">Financials</a></li>
-                  <li><a href="#">Settings</a></li>
-                </ul>
-              </li>
             </ul>
             <form class="navbar-form pull-right">
-              <input class="span2" type="text" placeholder="Email">
-              <input class="span2" type="password" placeholder="Password">
+              <input class="span2" type="text" placeholder="Email" style="width:100px">
+              <input class="span2" type="password" placeholder="Password" style="width:100px">
               <button type="submit" class="btn">Sign in</button>
             </form>
           </div><!--/.nav-collapse -->
@@ -106,22 +99,25 @@
 
         <div id='jqxTabs'>
             <ul>
-                <li style="margin-left: 30px;">Members</li>
+                <li style="margin-left: 30px;">Member</li>
                 <li>Events</li>
                 <li>Inventory</li>
                 <li>Financials</li>
                 <li>Settings</li>
             </ul>
+			<!-- 
+			------------------------------------------ Member
+			-->
             <div>
 				<div style=" width:660px; display:inline-block; vertical-align:top">
-					<div style="margin-top:10px; margin-left:10px;" id="jqxgrid_members"></div>
+					<div style="margin-top:10px; margin-left:10px;" id="Member_Grid"></div>
 					<div style="margin-left: 10px; margin-top:10px">
-						<div style="display:inline-block"><input class="btn btn-primary" id="addrowbutton_member" type="button" value="  New Member  " /></div>
-						<div style="display:inline-block"><input class="btn" id="deleterowbutton_member" type="button" value="  Delete  " /></div>
+						<div style="display:inline-block"><input class="btn btn-primary" id="Member_AddRow" type="button" value="  New Member  " /></div>
+						<div style="display:inline-block"><input class="btn" id="Member_DeleteRow" type="button" value="  Delete  " /></div>
 					</div>
 				</div>
 				
-				<div id="popupWindow">
+				<div id="Member_PopupWindow">
 					<div>Edit Member</div>
 					<div style="overflow: hidden; padding:5px">
 						<table cellpadding=2 cellspacing=2>
@@ -131,7 +127,7 @@
 							</tr>
 							
 							<tr>
-								<td align="right">Membership:</td>
+								<td align="right">Memberhip:</td>
 								<td align="left"><div type="text" id="MemberType"></div></td>
 							</tr>
 							
@@ -168,41 +164,187 @@
 							<tr>
 								<td align="right"></td>
 								<td style="padding-top: 10px;" align="right">
-								<input style="margin-right: 5px;" type="button" class="btn btn-primary" id="Save" value="Save" />
-								<input class="btn" id="Cancel" type="button" value="Cancel" /></td>
+								<input style="margin-right: 5px;" type="button" class="btn btn-primary" id="Member_Save" value="Save" />
+								<input class="btn" id="Member_Cancel" type="button" value="Cancel" /></td>
 							</tr>
 						</table>
 					</div>
 			   </div>				
             </div>
+			<!-- 
+			------------------------------------------ EVENTS
+			-->
+            <div>
+				<div style=" width:660px; display:inline-block; vertical-align:top">
+					<div style="margin-top:10px; margin-left:10px;" id="Event_Grid"></div>
+					<div style="margin-left: 10px; margin-top:10px">
+						<div style="display:inline-block"><input class="btn btn-primary" id="Event_AddRow" type="button" value="  New Event  " /></div>
+						<div style="display:inline-block"><input class="btn" id="Event_DeleteRow" type="button" value="  Delete  " /></div>
+					</div>
+				</div>
+				
+				<div id="Event_PopupWindow">
+					<div>Edit Event</div>
+					<div style="overflow: hidden; padding:5px">
+						<table cellpadding=2 cellspacing=2>
+							<tr>
+								<td align="right">Event Date:</td>
+								<td align="left"><div id="EventDate"></div></td>
+							</tr>
+
+							<tr>
+								<td align="right">Organizer:</td>
+								<td align="left"><input type="text" id="EventOrganizer" /></td>
+							</tr>
+							
+							<tr>
+								<td align="right">Event Type:</td>
+								<td align="left"><div type="text" id="EventType"></div></td>
+							</tr>
+							
+							<tr>
+								<td align="right">Event Name:</td>
+								<td align="left"><input type="text" id="EventName" /></td>
+							</tr>
+							
+							<tr>
+								<td align="right" style="vertical-align:top">Notes:</td>
+								<td align="left"><textarea id="EventNotes" /></textarea></td>
+							</tr>
+
+							<tr>
+								<td align="right" style="vertical-align:top">Active:</td>
+								<td align="left"><div id="EventActiveCheck"></div></td>
+							</tr>
+							
+							<tr>
+								<td align="right"></td>
+								<td style="padding-top: 10px;" align="right">
+								<input style="margin-right: 5px;" type="button" class="btn btn-primary" id="Event_Save" value="Save" />
+								<input class="btn" id="Event_Cancel" type="button" value="Cancel" /></td>
+							</tr>
+						</table>
+					</div>
+			   </div>				
+            </div>
+			<!-- 
+			------------------------------------------ INVENTORY
+			-->
             <div>
 				<div style=" width:660px; display:inline-block; vertical-align:top">
 					<div style="margin-top:10px; margin-left:10px;" id="jqxgrid_events"></div>
 					<div style="margin-left: 10px; margin-top:10px">
-						<div style="display:inline-block"><input class="btn btn-primary" id="addrowbutton" type="button" value="  New Event  " /></div>
-						<div style="display:inline-block"><input class="btn" id="deleterowbutton" type="button" value="  Delete  " /></div>
+						<div style="display:inline-block"><input class="btn btn-primary" id="addrowbutton_event" type="button" value="  New Event  " /></div>
+						<div style="display:inline-block"><input class="btn" id="deleterowbutton_event" type="button" value="  Delete  " /></div>
 					</div>
 				</div>
+				
+				<div id="popupWindow_events">
+					<div>Edit Event</div>
+					<div style="overflow: hidden; padding:5px">
+						<table cellpadding=2 cellspacing=2>
+							<tr>
+								<td align="right">Event Date:</td>
+								<td align="left"><div id="EventDate"></div></td>
+							</tr>
+
+							<tr>
+								<td align="right">Organizer:</td>
+								<td align="left"><div type="text" id="EventOrganizer"></div></td>
+							</tr>
+							
+							<tr>
+								<td align="right">Event Type:</td>
+								<td align="left"><div type="text" id="EventType"></div></td>
+							</tr>
+							
+							<tr>
+								<td align="right">Event Name:</td>
+								<td align="left"><input type="text" id="EventName" /></td>
+							</tr>
+							
+							<tr>
+								<td align="right" style="vertical-align:top">Notes:</td>
+								<td align="left"><textarea id="EventNotes" /></textarea></td>
+							</tr>
+
+							<tr>
+								<td align="right" style="vertical-align:top">Active:</td>
+								<td align="left"><div id="EventActiveCheck"></div></td>
+							</tr>
+							
+							<tr>
+								<td align="right"></td>
+								<td style="padding-top: 10px;" align="right">
+								<input style="margin-right: 5px;" type="button" class="btn btn-primary" id="EventSave" value="Save" />
+								<input class="btn" id="EventCancel" type="button" value="Cancel" /></td>
+							</tr>
+						</table>
+					</div>
+			   </div>				
             </div>
+			<!-- 
+			------------------------------------------ FINANCIALS
+			-->
             <div>
 				<div style=" width:660px; display:inline-block; vertical-align:top">
-					<div style="margin-top:10px; margin-left:10px;" id="jqxgrid_inventory"></div>
+					<div style="margin-top:10px; margin-left:10px;" id="jqxgrid_events"></div>
 					<div style="margin-left: 10px; margin-top:10px">
-						<div style="display:inline-block"><input class="btn btn-primary" id="addrowbutton" type="button" value="  New Item  " /></div>
-						<div style="display:inline-block"><input class="btn" id="deleterowbutton" type="button" value="  Delete  " /></div>
+						<div style="display:inline-block"><input class="btn btn-primary" id="addrowbutton_event" type="button" value="  New Event  " /></div>
+						<div style="display:inline-block"><input class="btn" id="deleterowbutton_event" type="button" value="  Delete  " /></div>
 					</div>
 				</div>
-            </div>
-            <div>
-				<div style=" width:660px; display:inline-block; vertical-align:top">
-					<div style="margin-top:10px; margin-left:10px;" id="jqxgrid_financials"></div>
-					<div style="margin-left: 10px; margin-top:10px">
-						<div style="display:inline-block"><input class="btn btn-primary" id="addrowbutton" type="button" value="  New Row  " /></div>
-						<div style="display:inline-block"><input class="btn" id="deleterowbutton" type="button" value="  Delete  " /></div>
+				
+				<div id="popupWindow_events">
+					<div>Edit Event</div>
+					<div style="overflow: hidden; padding:5px">
+						<table cellpadding=2 cellspacing=2>
+							<tr>
+								<td align="right">Event Date:</td>
+								<td align="left"><div id="EventDate"></div></td>
+							</tr>
+
+							<tr>
+								<td align="right">Organizer:</td>
+								<td align="left"><div type="text" id="EventOrganizer"></div></td>
+							</tr>
+							
+							<tr>
+								<td align="right">Event Type:</td>
+								<td align="left"><div type="text" id="EventType"></div></td>
+							</tr>
+							
+							<tr>
+								<td align="right">Event Name:</td>
+								<td align="left"><input type="text" id="EventName" /></td>
+							</tr>
+							
+							<tr>
+								<td align="right" style="vertical-align:top">Notes:</td>
+								<td align="left"><textarea id="EventNotes" /></textarea></td>
+							</tr>
+
+							<tr>
+								<td align="right" style="vertical-align:top">Active:</td>
+								<td align="left"><div id="EventActiveCheck"></div></td>
+							</tr>
+							
+							<tr>
+								<td align="right"></td>
+								<td style="padding-top: 10px;" align="right">
+								<input style="margin-right: 5px;" type="button" class="btn btn-primary" id="EventSave" value="Save" />
+								<input class="btn" id="EventCancel" type="button" value="Cancel" /></td>
+							</tr>
+						</table>
 					</div>
-				</div>
+			   </div>				
+			
             </div>
+			<!-- 
+			------------------------------------------ SETTINGS
+			-->
             <div>
+				Settings Page
             </div>       
         </div     
         
