@@ -4,6 +4,21 @@ session_start();
 ob_start(); 
 header('Content-Type: text/html; charset=UTF-8');
 
+//--------- LOGIN
+$site_url = "hackspace.tw";
+$site_url = "localhost/hackspace";
+
+if (empty($_SESSION['login_backoffice'])) { $_SESSION['login_backoffice'] = "no"; }
+
+$user_name              = $_POST["login_user_name"];
+$password               = $_POST["login_password"];
+
+if (($user_name=="admin") && ($password=="admin")) { $_SESSION['login_backoffice'] = "ok"; }
+
+
+
+
+
 if (empty($_SESSION['Lang'])) { $_SESSION['Lang']="chinese"; }
 
 if (($_GET["lang"]=="chinese") || ($_SESSION['Lang']=="chinese"))
@@ -19,10 +34,11 @@ if (($_GET["lang"]=="english") || ($_SESSION['Lang']=="english"))
 }
 
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title><?php echo $Trans_Title; ?></title>
+	<title><?php echo $Trans_Title."---".$_SESSION['login_backoffice']; ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="Ekim Emre Yardımlı">
@@ -80,6 +96,35 @@ if (($_GET["lang"]=="english") || ($_SESSION['Lang']=="english"))
 		  font-size: 12px;
 
 		  background: #EEE url("bg_main_dark.jpg");
+		  
+/* login */
+
+.login { background: #4f4f4f; margin: 0; padding: 0; font: normal 0.75em/1.3em arial, sans-serif}
+.login .pos { border: 0 solid #222; width: 700px; height: 340px; position: absolute; left: 50%; top: 50%; margin-left:-350px; margin-top:-200px}
+.login .pos { background: url(back.png) no-repeat}
+.login .in { padding: 140px 40px 20px 0; color: #000}
+.login img { margin-top: 15px} 
+.login.new .left, .login.ref .left, .login .header { display: none} 
+
+/* --- user/pass login block */
+
+.login .exist { margin-top: 60px; text-align: left !important; height: 100px; position: relative; left: 170px; width: 500px}
+.login .exist div { position: absolute; color: #666}
+.login .exist .userlbl { top: 0; left: 0; color: #999}
+.login .exist .passlbl { top: 0; left: 140px; color: #999}
+.login .exist .userbox { top: 22px; left: 0}
+.login .exist .passbox { top: 22px; left: 140px}
+.submit_btn { top: 12px; left: 275px; _top: 8px}
+.login .exist .userbox input { width: 120px; padding: 3px; border: 1px solid #ccc; color: #777; line-height: 1; font-size: 1.1em}
+.login .exist .passbox input { width: 120px; padding: 3px; border: 1px solid #ccc; color: #b00; line-height: 1; font-size: 10pt}
+.submit_btn { color: #fff; background: url(button.gif) top left repeat-x; padding: 2px 6px 3px; border: 1px solid #666; margin-top: 14px; _padding-top: 1px; _border: 0; font-weight: bold; font-size: 10pt}
+.login .exist .remchk { top: 66px; left: 0; _top: 58px; _left: -3px}
+.login .exist .remlbl { top: 68px; left: 21px;  _top: 60px; _left: 20px}
+.login .exist .trouble { top: 68px; left: 141px; _top: 58px}
+
+.login .footer { margin-top: 22px; _margin-top: 28px; margin-left: 270px; text-align: left !important; width: 340px} 
+.login .error { font-weight: bold; background: #d03a00; color: #fff; padding: 18px; font-size: 22px; width: 100%} 
+		  
 		}
 	</style>
 
@@ -108,9 +153,9 @@ if (($_GET["lang"]=="english") || ($_SESSION['Lang']=="english"))
 			  <li><a href="?lang=chinese">中文</a></li>
 			  <li><a href="?lang=english">English</a></li>
             </ul>
-            <form class="navbar-form pull-right">
-              <input class="span2" type="text" placeholder="<?php echo $Trans_Email; ?>" style="width:100px; height:30px">
-              <input class="span2" type="password" placeholder="<?php echo $Trans_Password; ?>" style="width:100px; height:30px">
+            <form class="navbar-form pull-right" method="post">
+              <input id="login_user_name" name="login_user_name" class="span2" type="text" placeholder="<?php echo $Trans_Email; ?>" style="width:100px; height:30px">
+              <input id="login_password" name="login_password" class="span2" type="password" placeholder="<?php echo $Trans_Password; ?>" style="width:100px; height:30px">
               <button type="submit" class="btn"><?php echo $Trans_Sign_in; ?></button>
             </form>
           </div><!--/.nav-collapse -->
@@ -120,7 +165,10 @@ if (($_GET["lang"]=="english") || ($_SESSION['Lang']=="english"))
     
 	
 	<div class="container">
-
+<?php
+if ($_SESSION['login_backoffice'] == "ok") 
+{
+?>
         <div id='jqxTabs'>
             <ul>
                 <li style="margin-left: 30px;"><?php echo $Trans_Member; ?></li>
@@ -371,6 +419,10 @@ if (($_GET["lang"]=="english") || ($_SESSION['Lang']=="english"))
 				<?php echo $Trans_SettingsText; ?>
             </div>       
         </div     
+
+<?php
+}
+?>
         
     </div>
 	
